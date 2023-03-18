@@ -1,6 +1,4 @@
-﻿Console.WriteLine("Hello, Design Patterns");
-
-// The Gang of Four Design Patterns https://en.wikipedia.org/wiki/Design_Patterns
+﻿// The Gang of Four Design Patterns https://en.wikipedia.org/wiki/Design_Patterns
 
 // Creational
 
@@ -64,3 +62,44 @@
 
 // Maybe also interesting read: https://en.wikipedia.org/wiki/Expression_problem
 
+using ObjectOrientedPatterns.AbstractFactory;
+using FunctionalPatterns;
+
+class Program
+{
+    public static void Main(string[] args)
+    {
+        // TODO: Write switching logic over the examples
+        // in old school style -> print some options with numbers -> ask for number -> do thing -> repeat
+        Example_AbstractFactoryObjectOriented();
+        Example_AbstractFactoryFunctional();
+    }
+
+    static void Example_AbstractFactoryObjectOriented()
+    {
+        // The concrete factory can be easily exchanged without the need to modify any other code
+        // This can even happen at runtime
+        ICarFactory factory =
+        new TeslaFactory();
+        //new OpelFactory();
+
+        IExpensiveCar expensiveCar = factory.createExpensiveCar();
+        expensiveCar.entertain();
+        expensiveCar.drive();
+        ICheapCar car = factory.createCheapCar();
+        car.drive();
+    }
+
+    static void Example_AbstractFactoryFunctional()
+    {
+        AbstractFactory.CarFactory factory =
+        //Cars.createTeslaFactory();
+        AbstractFactory.createOpelFactory();
+
+        AbstractFactory.ExpensiveCar expensiveCar = factory.createExpensiveCar.Invoke(null); // () in F# is null in C#
+        expensiveCar.entertain.Invoke(null);
+        expensiveCar.drive.Invoke(null);
+        AbstractFactory.CheapCar car = factory.createCheapCar.Invoke(null);
+        car.drive.Invoke(null);
+    }
+}
