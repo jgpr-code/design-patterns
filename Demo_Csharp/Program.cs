@@ -64,18 +64,62 @@
 
 using ObjectOrientedPatterns.AbstractFactory;
 using FunctionalPatterns;
+using System.Text;
 
 class Program
 {
+    private const string AbstractFactoryKeys = "af";
+    private const string QuitKeys = "q";
     public static void Main(string[] args)
     {
-        // TODO: Write switching logic over the examples
-        // in old school style -> print some options with numbers -> ask for number -> do thing -> repeat
-        Example_AbstractFactoryObjectOriented();
-        Example_AbstractFactoryFunctional();
+        Console.WriteLine("Welcome to the DesignPatterns Examples");
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine("Please select an example to run:");
+        sb.AppendLine(Choice(AbstractFactoryKeys, "AbstractFactory"));
+        sb.AppendLine(Choice(QuitKeys, "Quit"));
+        var prompt = sb.ToString();
+
+        RunRepl(prompt);
     }
 
-    static void Example_AbstractFactoryObjectOriented()
+    static string Choice(string keys, string command)
+    {
+        return keys.PadRight(3) + "-> " + command;
+    }
+
+    static void RunRepl(string prompt)
+    {
+        while (true)
+        {
+            Console.WriteLine(prompt);
+            var input = Console.ReadLine();
+            switch (input)
+            {
+                case AbstractFactoryKeys:
+                    RunExamples("AbstractFactory", Example_AbstractFactory_OO, Example_AbstractFactory_FP);
+                    break;
+                case QuitKeys:
+                    return;
+                default:
+                    Console.WriteLine("unknown keys (you entered: " + input + ") -> try again");
+                    break;
+            }
+        }
+    }
+
+    static void RunExamples(string patternName, Action objectOrientedExample, Action functionalExample)
+    {
+        Console.WriteLine(patternName + ':');
+        Console.WriteLine();
+        Console.WriteLine("-> Object Oriented:");
+        objectOrientedExample();
+        Console.WriteLine();
+        Console.WriteLine("-> Functional:");
+        functionalExample();
+        Console.WriteLine("------------------------------------------------------------");
+    }
+
+    static void Example_AbstractFactory_OO()
     {
         // The concrete factory can be easily exchanged without the need to modify any other code
         // This can even happen at runtime
@@ -83,22 +127,25 @@ class Program
         new TeslaFactory();
         //new OpelFactory();
 
-        IExpensiveCar expensiveCar = factory.createExpensiveCar();
-        expensiveCar.entertain();
-        expensiveCar.drive();
-        ICheapCar car = factory.createCheapCar();
-        car.drive();
+        IExpensiveCar expensiveCar = factory.CreateExpensiveCar();
+        expensiveCar.Drive();
+        expensiveCar.Entertainment();
+
+        ICheapCar car = factory.CreateCheapCar();
+        car.Drive();
     }
 
-    static void Example_AbstractFactoryFunctional()
+    static void Example_AbstractFactory_FP()
     {
+        // Types that hold functions in their fields can emulate this pattern
         AbstractFactory.CarFactory factory =
-        //Cars.createTeslaFactory();
+        //AbstractFactory.createTeslaFactory();
         AbstractFactory.createOpelFactory();
 
         AbstractFactory.ExpensiveCar expensiveCar = factory.createExpensiveCar.Invoke(null); // () in F# is null in C#
-        expensiveCar.entertain.Invoke(null);
         expensiveCar.drive.Invoke(null);
+        expensiveCar.entertain.Invoke(null);
+
         AbstractFactory.CheapCar car = factory.createCheapCar.Invoke(null);
         car.drive.Invoke(null);
     }

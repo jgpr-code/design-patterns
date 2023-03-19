@@ -4,76 +4,84 @@
     {
         public interface ICheapCar
         {
-            public void drive();
+            public void Drive();
         }
+
         public interface IExpensiveCar
         {
-            public void drive();
-            public void entertain();
+            public void Drive();
+            public void Entertainment();
         }
+
         public interface ICarFactory
         {
-            public ICheapCar createCheapCar();
-            public IExpensiveCar createExpensiveCar();
+            public ICheapCar CreateCheapCar();
+            public IExpensiveCar CreateExpensiveCar();
         }
+
         internal class CheapOpel : ICheapCar
         {
-            public void drive()
+            public void Drive()
             {
                 Console.WriteLine("driving a cheap Opel");
             }
         }
+
         internal class ExpensiveOpel : IExpensiveCar
         {
-            public void drive()
+            public void Drive()
             {
                 Console.WriteLine("driving an expensive Opel");
             }
 
-            public void entertain()
+            public void Entertainment()
             {
-                Console.WriteLine("you are entertained by your expensive Opel");
+                Console.WriteLine("Opel entertainment");
             }
         }
+
         internal class CheapTesla : ICheapCar
         {
-            public void drive()
+            public void Drive()
             {
-                Console.WriteLine("drive a cheap Tesla (you're walking)");
+                Console.WriteLine("driving a cheap Tesla (you're walking)");
             }
         }
+
         internal class ExpensiveTesla : IExpensiveCar
         {
-            public void drive()
+            public void Drive()
             {
                 Console.WriteLine("driving an expensive Tesla");
             }
 
-            public void entertain()
+            public void Entertainment()
             {
-                Console.WriteLine("you are entertained by your expensive Tesla");
+                Console.WriteLine("Tesla entertainment");
             }
         }
+
         public class OpelFactory : ICarFactory
         {
-            public ICheapCar createCheapCar()
+            public ICheapCar CreateCheapCar()
             {
                 return new CheapOpel();
             }
 
-            public IExpensiveCar createExpensiveCar()
+            public IExpensiveCar CreateExpensiveCar()
             {
                 return new ExpensiveOpel();
             }
         }
+
         public class TeslaFactory : ICarFactory
         {
-            public ICheapCar createCheapCar()
+            public ICheapCar CreateCheapCar()
             {
                 return new CheapTesla();
             }
 
-            public IExpensiveCar createExpensiveCar()
+            public IExpensiveCar CreateExpensiveCar()
             {
                 return new ExpensiveTesla();
             }
