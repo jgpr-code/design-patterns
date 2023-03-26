@@ -6,7 +6,29 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="AbstractFactory.fs" />
+    <Compile Include="Behavioral\ChainOfResponsibility.fs" />
+    <Compile Include="Behavioral\Command.fs" />
+    <Compile Include="Behavioral\Interpreter.fs" />
+    <Compile Include="Behavioral\Iterator.fs" />
+    <Compile Include="Behavioral\Mediator.fs" />
+    <Compile Include="Behavioral\Memento.fs" />
+    <Compile Include="Behavioral\Observer.fs" />
+    <Compile Include="Behavioral\State.fs" />
+    <Compile Include="Behavioral\Strategy.fs" />
+    <Compile Include="Behavioral\TemplateMethod.fs" />
+    <Compile Include="Behavioral\Visitor.fs" />
+    <Compile Include="Structural\Adapter.fs" />
+    <Compile Include="Structural\Bridge.fs" />
+    <Compile Include="Structural\Composite.fs" />
+    <Compile Include="Structural\Decorator.fs" />
+    <Compile Include="Structural\Facade.fs" />
+    <Compile Include="Structural\Flyweight.fs" />
+    <Compile Include="Structural\Proxy.fs" />
+    <Compile Include="Creational\AbstractFactory.fs" />
+    <Compile Include="Creational\Builder.fs" />
+    <Compile Include="Creational\FactoryMethod.fs" />
+    <Compile Include="Creational\Prototype.fs" />
+    <Compile Include="Creational\Singleton.fs" />
   </ItemGroup>
 
 </Project>

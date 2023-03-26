@@ -1,6 +1,9 @@
 ﻿namespace FunctionalPatterns
+namespace FunctionalPatterns.Creational
 
 module AbstractFactory =
+
+    // Observation: Record types that just hold functions can be used like interfaces
 
     type CheapCar = { drive: unit -> unit }
 

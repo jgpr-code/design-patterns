@@ -1,0 +1,5 @@
+﻿module ChainOfResponsibility =
+
+// TODO
+    ()
+

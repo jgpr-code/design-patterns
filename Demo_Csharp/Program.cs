@@ -37,7 +37,7 @@
 // Creational
 
 // Dependency Injection A class accepts the objects it requires from an injector instead of creating the objects directly.
-// Lazy Initialization 	Tactic of delaying the creation of an object, the calculation of a value, or some other expensive process until the first time it is needed. This pattern appears in the GoF catalog as "virtual proxy", an implementation strategy for the Proxy pattern.
+// Lazy Initialization Tactic of delaying the creation of an object, the calculation of a value, or some other expensive process until the first time it is needed. This pattern appears in the GoF catalog as "virtual proxy", an implementation strategy for the Proxy pattern.
 // Multiton Ensure a class has only named instances, and provide a global point of access to them.
 // Object Pool Avoid expensive acquisition and release of resources by recycling objects that are no longer in use. Can be considered a generalisation of connection pool and thread pool patterns.
 // RAII Ensure that resources are properly released by tying them to the lifespan of suitable objects.
@@ -62,18 +62,27 @@
 
 // Maybe also interesting read: https://en.wikipedia.org/wiki/Expression_problem
 
-using ObjectOrientedPatterns.AbstractFactory;
-using FunctionalPatterns;
+using FunctionalPatterns.Creational;
+
+
+using FunctionalPatterns.Structural;
 using System.Text;
+using ObjectOrientedPatterns.Creational;
 
 class Program
 {
+    // Creational
     private const string AbstractFactoryKeys = "af";
+
+    // Structural
+
+    // Behavioral
+
     private const string QuitKeys = "q";
     public static void Main(string[] args)
     {
         Console.WriteLine("Welcome to the DesignPatterns Examples");
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new();
         sb.AppendLine("Please select an example to run:");
         sb.AppendLine(Choice(AbstractFactoryKeys, "AbstractFactory"));
         sb.AppendLine(Choice(QuitKeys, "Quit"));
@@ -95,9 +104,12 @@ class Program
             var input = Console.ReadLine();
             switch (input)
             {
+                // Creational
                 case AbstractFactoryKeys:
                     RunExamples("AbstractFactory", Example_AbstractFactory_OO, Example_AbstractFactory_FP);
                     break;
+                // Structural
+                // Behavioral
                 case QuitKeys:
                     return;
                 default:
@@ -119,6 +131,7 @@ class Program
         Console.WriteLine("------------------------------------------------------------");
     }
 
+    // CREATIONAL PATTERNS EXAMPLES
     static void Example_AbstractFactory_OO()
     {
         // The concrete factory can be easily exchanged without the need to modify any other code
@@ -149,4 +162,18 @@ class Program
         AbstractFactory.CheapCar car = factory.createCheapCar.Invoke(null);
         car.drive.Invoke(null);
     }
+
+    // STRUCTURAL PATTERNS EXAMPLES
+
+    static void Example_Bridge_OOP()
+    {
+
+    }
+
+    static void Example_Bridge_FP()
+    {
+
+    }
+
+    // BEHAVIORAL PATTERNS EXAMPLES
 }
