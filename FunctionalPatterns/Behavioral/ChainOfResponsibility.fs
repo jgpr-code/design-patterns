@@ -1,5 +1,7 @@
-﻿module ChainOfResponsibility =
+﻿namespace FunctionalPatterns
+namespace FunctionalPatterns.Behavioral
 
-// TODO
+module ChainOfResponsibility =
+
+    // TODO
     ()
-

@@ -62,6 +62,31 @@
 
 // Maybe also interesting read: https://en.wikipedia.org/wiki/Expression_problem
 
+// The most common patterns according to ChatGPT are:
+
+//Singleton pattern: ensures that only one instance of a class is created and provides a global point of access to that instance.
+
+//Factory method pattern: defines an interface for creating objects, but lets subclasses decide which class to instantiate.
+
+//Abstract factory pattern: provides an interface for creating families of related or dependent objects without specifying their concrete classes.
+
+//Builder pattern: separates the construction of a complex object from its representation, allowing the same construction process to create different representations.
+
+//Adapter pattern: converts the interface of a class into another interface clients expect.
+
+//Decorator pattern: attaches additional responsibilities to an object dynamically.
+
+//Facade pattern: provides a unified interface to a set of interfaces in a subsystem.
+
+//Observer pattern: defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
+
+//Strategy pattern: defines a family of algorithms, encapsulates each one, and makes them interchangeable.
+
+//Template method pattern: defines the skeleton of an algorithm in a method, deferring some steps to subclasses.
+
+using ObjectOrientedPatterns.Creational.AbstractFactory;
+using ObjectOrientedPatterns.Creational.FactoryMethod;
+
 using FunctionalPatterns.Creational;
 
 
@@ -73,6 +98,7 @@ class Program
 {
     // Creational
     private const string AbstractFactoryKeys = "af";
+    private const string FactoryMethodKeys = "fm";
 
     // Structural
 
@@ -85,6 +111,7 @@ class Program
         StringBuilder sb = new();
         sb.AppendLine("Please select an example to run:");
         sb.AppendLine(Choice(AbstractFactoryKeys, "AbstractFactory"));
+        sb.AppendLine(Choice(FactoryMethodKeys, "FactoryMethod"));
         sb.AppendLine(Choice(QuitKeys, "Quit"));
         var prompt = sb.ToString();
 
@@ -107,6 +134,9 @@ class Program
                 // Creational
                 case AbstractFactoryKeys:
                     RunExamples("AbstractFactory", Example_AbstractFactory_OO, Example_AbstractFactory_FP);
+                    break;
+                case FactoryMethodKeys:
+                    RunExamples("FactoryMethod", Example_FactoryMethod_OO, Example_FactoryMethod_FP);
                     break;
                 // Structural
                 // Behavioral
@@ -161,6 +191,24 @@ class Program
 
         AbstractFactory.CheapCar car = factory.createCheapCar.Invoke(null);
         car.drive.Invoke(null);
+    }
+
+    static void Example_FactoryMethod_OO()
+    {
+        IFileReader textFileReader = FileReaderFactory.CreateFileReader(".txt");
+        textFileReader.Read();
+
+        IFileReader pdfFileReader = FileReaderFactory.CreateFileReader(".pdf");
+        pdfFileReader.Read();
+    }
+
+    static void Example_FactoryMethod_FP()
+    {
+        FactoryMethod.FileReader textFileReader = FactoryMethod.createFileReader(".txt");
+        textFileReader.read.Invoke(null);
+
+        FactoryMethod.FileReader pdfFileReader = FactoryMethod.createFileReader(".pdf");
+        pdfFileReader.read.Invoke(null);
     }
 
     // STRUCTURAL PATTERNS EXAMPLES

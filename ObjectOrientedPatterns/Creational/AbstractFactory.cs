@@ -1,4 +1,4 @@
-﻿namespace ObjectOrientedPatterns.Creational
+﻿namespace ObjectOrientedPatterns.Creational.AbstractFactory
 {
     public interface ICheapCar
     {

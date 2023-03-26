@@ -1,12 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ObjectOrientedPatterns.Creational
+﻿namespace ObjectOrientedPatterns.Creational.FactoryMethod
 {
-    internal class FactoryMethod
+    public interface IFileReader
     {
+        void Read();
+    }
+
+    class TextFileReader : IFileReader
+    {
+        public void Read()
+        {
+            Console.WriteLine("Reading text file...");
+        }
+    }
+
+    class PDFFileReader : IFileReader
+    {
+        public void Read()
+        {
+            Console.WriteLine("Reading PDF file...");
+        }
+    }
+
+    public class FileReaderFactory
+    {
+        public static IFileReader CreateFileReader(string fileExtension)
+        {
+            switch (fileExtension.ToLower())
+            {
+                case ".txt":
+                    return new TextFileReader();
+                case ".pdf":
+                    return new PDFFileReader();
+                default:
+                    throw new ArgumentException("Unsupported file type");
+            }
+        }
     }
 }

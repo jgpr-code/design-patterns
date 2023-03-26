@@ -17,6 +17,11 @@
     <Compile Include="Behavioral\Strategy.fs" />
     <Compile Include="Behavioral\TemplateMethod.fs" />
     <Compile Include="Behavioral\Visitor.fs" />
+    <Compile Include="Creational\AbstractFactory.fs" />
+    <Compile Include="Creational\Builder.fs" />
+    <Compile Include="Creational\FactoryMethod.fs" />
+    <Compile Include="Creational\Prototype.fs" />
+    <Compile Include="Creational\Singleton.fs" />
     <Compile Include="Structural\Adapter.fs" />
     <Compile Include="Structural\Bridge.fs" />
     <Compile Include="Structural\Composite.fs" />
@@ -24,11 +29,6 @@
     <Compile Include="Structural\Facade.fs" />
     <Compile Include="Structural\Flyweight.fs" />
     <Compile Include="Structural\Proxy.fs" />
-    <Compile Include="Creational\AbstractFactory.fs" />
-    <Compile Include="Creational\Builder.fs" />
-    <Compile Include="Creational\FactoryMethod.fs" />
-    <Compile Include="Creational\Prototype.fs" />
-    <Compile Include="Creational\Singleton.fs" />
   </ItemGroup>
 
 </Project>
