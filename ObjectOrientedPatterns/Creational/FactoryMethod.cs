@@ -7,18 +7,12 @@
 
     class TextFileReader : IFileReader
     {
-        public void Read()
-        {
-            Console.WriteLine("Reading text file...");
-        }
+        public void Read() => Console.WriteLine("Reading text file...");
     }
 
     class PDFFileReader : IFileReader
     {
-        public void Read()
-        {
-            Console.WriteLine("Reading PDF file...");
-        }
+        public void Read() => Console.WriteLine("Reading PDF file...");
     }
 
     public class FileReaderFactory
