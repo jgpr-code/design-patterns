@@ -304,7 +304,9 @@ class Program
     private const string QuitKeys = "q";
     public static void Main(string[] args)
     {
-        Console.WriteLine("Welcome to the DesignPatterns examples!");
+        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        Console.WriteLine("         Welcome to the DesignPatterns examples");
+        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         StringBuilder sb = new();
         sb.AppendLine("Please select an example to run.");
         sb.AppendLine("Creational:");
@@ -324,6 +326,7 @@ class Program
         }
         sb.AppendLine();
         sb.AppendLine(Choice(QuitKeys, "Quit"));
+        sb.AppendLine("------------------------------------------------------------");
         var prompt = sb.ToString();
         RunRepl(prompt);
     }
@@ -365,6 +368,7 @@ class Program
         Console.WriteLine("-> Functional:");
         functionalExample();
         Console.WriteLine("------------------------------------------------------------");
+        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
     #endregion
 }
