@@ -74,9 +74,9 @@
 
 // [DONE] Adapter pattern: converts the interface of a class into another interface clients expect.
 
-// [TODO] Decorator pattern: attaches additional responsibilities to an object dynamically.
+// [DONE] Decorator pattern: attaches additional responsibilities to an object dynamically.
 
-// [TODO] Facade pattern: provides a unified interface to a set of interfaces in a subsystem.
+// [DONE] Facade pattern: provides a unified interface to a set of interfaces in a subsystem.
 
 // [TODO] Observer pattern: defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
 
@@ -93,6 +93,7 @@ using FunctionalPatterns.Creational;
 
 using ObjectOrientedPatterns.Structural.Adapter;
 using ObjectOrientedPatterns.Structural.Decorator;
+using ObjectOrientedPatterns.Structural.Facade;
 
 using FunctionalPatterns.Structural;
 using System.Text;
@@ -126,6 +127,7 @@ class Program
     {
         new PatternConfig("ad", "Adapter", Example_Adapter_OO, Example_Adapter_FP),
         new PatternConfig("de", "Decorator", Example_Decorator_OO, Example_Decorator_FP),
+        new PatternConfig("fa", "Facade", Example_Facade_OO, Example_Facade_FP),
     };
     private static readonly List<PatternConfig> myBehavioralPatterns = new()
     {
@@ -347,6 +349,25 @@ class Program
         window = Decorator.verticalScrollbar(window);
         window = Decorator.menuBar(window);
         window.draw.Invoke(null);
+    }
+
+    static void Example_Facade_OO()
+    {
+        Cpu cpu = new();
+        HardDrive hardDrive = new();
+        Memory memory = new();
+        ComputerFacade computer = new(cpu, hardDrive, memory);
+        computer.Start();
+    }
+
+    static void Example_Facade_FP()
+    {
+        Facade.Cpu cpu = Facade.newCpu;
+        Facade.HardDrive hardDrive = Facade.newHardDrive;
+        Facade.Memory memory = Facade.newMemory;
+
+        Facade.Computer computer = Facade.newComputer(cpu, hardDrive, memory);
+        computer.start.Invoke(null);
     }
     #endregion
 
