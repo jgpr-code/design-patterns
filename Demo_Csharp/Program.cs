@@ -95,6 +95,7 @@ using FunctionalPatterns.Creational;
 using FunctionalPatterns.Structural;
 using System.Text;
 using ObjectOrientedPatterns.Creational;
+using ObjectOrientedPatterns.Structural.Adapter;
 
 readonly struct PatternConfig
 {
@@ -122,7 +123,7 @@ class Program
     };
     private static readonly List<PatternConfig> myStructuralPatterns = new()
     {
-
+        new PatternConfig("ad", "Adapter", Example_Adapter_OO, Example_Adapter_FP),
     };
     private static readonly List<PatternConfig> myBehavioralPatterns = new()
     {
@@ -297,13 +298,35 @@ class Program
 
     #region Structural Examples
 
-    static void Example_Bridge_OO()
+    static void Example_Adapter_OO()
     {
+        SayHello legacyHello = new("<your name>");
 
+        var functionYouWantToUse = (IGreetings greet) =>
+        {
+            greet.GreetFormal();
+            greet.GreetInformal();
+        };
+
+        SayHelloAdapter adapter = new(legacyHello, "Dear");
+
+        functionYouWantToUse(adapter);
     }
 
-    static void Example_Bridge_FP()
+    static void Example_Adapter_FP()
     {
+        Adapter.Hello legacyHello = Adapter.getHello("<your name>");
+
+        var functionYouWantToUse = (Adapter.Greetings greet) =>
+        {
+            greet.greetFormal.Invoke(null);
+            greet.greetInformal.Invoke(null);
+        };
+
+        Adapter.Greetings adapter = Adapter.getGreetingsAdapter(legacyHello, "Best");
+
+        functionYouWantToUse(adapter);
+
 
     }
     #endregion
