@@ -103,105 +103,6 @@ readonly struct PatternConfig
 
 class Program
 {
-    #region Main machinery
-    private static readonly List<PatternConfig> myCreationalPatterns = new()
-    {
-        new PatternConfig("af", "AbstractFactory", Example_AbstractFactory_OO, Example_AbstractFactory_FP),
-        new PatternConfig("bu", "Builder", Example_Builder_OO, Example_Builder_FP),
-        new PatternConfig("fm", "FactoryMethod", Example_FactoryMethod_OO, Example_FactoryMethod_FP),
-        new PatternConfig("si", "Singleton", Example_Singleton_OO, Example_Singleton_FP),
-    };
-    private static readonly List<PatternConfig> myStructuralPatterns = new()
-    {
-        new PatternConfig("ad", "Adapter", Example_Adapter_OO, Example_Adapter_FP),
-        new PatternConfig("de", "Decorator", Example_Decorator_OO, Example_Decorator_FP),
-        new PatternConfig("fa", "Facade", Example_Facade_OO, Example_Facade_FP),
-    };
-    private static readonly List<PatternConfig> myBehavioralPatterns = new()
-    {
-        new PatternConfig("st", "Strategy", Example_Strategy_OO, Example_Strategy_FP),
-    };
-    private static readonly Dictionary<string, (string, Action, Action)> myPatternsDict;
-
-    static Program()
-    {
-        var allPatterns =
-            myCreationalPatterns
-            .Concat(myStructuralPatterns)
-            .Concat(myBehavioralPatterns);
-        myPatternsDict = new();
-        foreach (var pattern in allPatterns) {
-            myPatternsDict.Add(pattern.keys, (pattern.name, pattern.example_OO, pattern.example_FP));
-        }
-    }
-
-    private const string QuitKeys = "q";
-    public static void Main(string[] args)
-    {
-        Console.WriteLine("Welcome to the DesignPatterns examples!");
-        StringBuilder sb = new();
-        sb.AppendLine("Please select an example to run.");
-        sb.AppendLine("Creational:");
-        foreach (var pattern in myCreationalPatterns)
-        {
-            sb.AppendLine(Choice(pattern.keys, pattern.name));
-        }
-        sb.AppendLine("Structural:");
-        foreach (var pattern in myStructuralPatterns)
-        {
-            sb.AppendLine(Choice(pattern.keys, pattern.name));
-        }
-        sb.AppendLine("Behavioral:");
-        foreach (var pattern in myBehavioralPatterns)
-        {
-            sb.AppendLine(Choice(pattern.keys, pattern.name));
-        }
-        sb.AppendLine();
-        sb.AppendLine(Choice(QuitKeys, "Quit"));
-        var prompt = sb.ToString();
-        RunRepl(prompt);
-    }
-
-    static string Choice(string keys, string command)
-    {
-        return keys.PadRight(3) + "-> " + command;
-    }
-
-    static void RunRepl(string prompt)
-    {
-        while (true)
-        {
-            Console.WriteLine(prompt);
-            string input = Console.ReadLine() ?? "";
-            if (input == QuitKeys)
-            {
-                return;
-            }
-            else if (myPatternsDict.ContainsKey(input))
-            {
-                var (name, example_oo, example_fp) = myPatternsDict[input];
-                RunExamples(name, example_oo, example_fp);
-            }
-            else
-            {
-                Console.WriteLine("unknown keys (you entered: " + input + ") -> try again");
-            }
-        }
-    }
-
-    static void RunExamples(string patternName, Action objectOrientedExample, Action functionalExample)
-    {
-        Console.WriteLine(patternName + ':');
-        Console.WriteLine();
-        Console.WriteLine("-> Object Oriented:");
-        objectOrientedExample();
-        Console.WriteLine();
-        Console.WriteLine("-> Functional:");
-        functionalExample();
-        Console.WriteLine("------------------------------------------------------------");
-    }
-    #endregion
-
     #region Creational Examples
     static void Example_AbstractFactory_OO()
     {
@@ -374,6 +275,105 @@ class Program
         Strategy.speakText(screaming, "hello");
         Strategy.SpeakingType slowTalking = Strategy.slowTalking;
         Strategy.speakText(slowTalking, "hello");
+    }
+    #endregion
+
+    #region Main machinery
+    private static readonly List<PatternConfig> myCreationalPatterns = new()
+    {
+        new PatternConfig("af", "AbstractFactory", Example_AbstractFactory_OO, Example_AbstractFactory_FP),
+        new PatternConfig("bu", "Builder", Example_Builder_OO, Example_Builder_FP),
+        new PatternConfig("fm", "FactoryMethod", Example_FactoryMethod_OO, Example_FactoryMethod_FP),
+        new PatternConfig("si", "Singleton", Example_Singleton_OO, Example_Singleton_FP),
+    };
+    private static readonly List<PatternConfig> myStructuralPatterns = new()
+    {
+        new PatternConfig("ad", "Adapter", Example_Adapter_OO, Example_Adapter_FP),
+        new PatternConfig("de", "Decorator", Example_Decorator_OO, Example_Decorator_FP),
+        new PatternConfig("fa", "Facade", Example_Facade_OO, Example_Facade_FP),
+    };
+    private static readonly List<PatternConfig> myBehavioralPatterns = new()
+    {
+        new PatternConfig("st", "Strategy", Example_Strategy_OO, Example_Strategy_FP),
+    };
+    private static readonly Dictionary<string, (string, Action, Action)> myPatternsDict;
+
+    static Program()
+    {
+        var allPatterns =
+            myCreationalPatterns
+            .Concat(myStructuralPatterns)
+            .Concat(myBehavioralPatterns);
+        myPatternsDict = new();
+        foreach (var pattern in allPatterns) {
+            myPatternsDict.Add(pattern.keys, (pattern.name, pattern.example_OO, pattern.example_FP));
+        }
+    }
+
+    private const string QuitKeys = "q";
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Welcome to the DesignPatterns examples!");
+        StringBuilder sb = new();
+        sb.AppendLine("Please select an example to run.");
+        sb.AppendLine("Creational:");
+        foreach (var pattern in myCreationalPatterns)
+        {
+            sb.AppendLine(Choice(pattern.keys, pattern.name));
+        }
+        sb.AppendLine("Structural:");
+        foreach (var pattern in myStructuralPatterns)
+        {
+            sb.AppendLine(Choice(pattern.keys, pattern.name));
+        }
+        sb.AppendLine("Behavioral:");
+        foreach (var pattern in myBehavioralPatterns)
+        {
+            sb.AppendLine(Choice(pattern.keys, pattern.name));
+        }
+        sb.AppendLine();
+        sb.AppendLine(Choice(QuitKeys, "Quit"));
+        var prompt = sb.ToString();
+        RunRepl(prompt);
+    }
+
+    static string Choice(string keys, string command)
+    {
+        return keys.PadRight(3) + "-> " + command;
+    }
+
+    static void RunRepl(string prompt)
+    {
+        while (true)
+        {
+            Console.WriteLine(prompt);
+            string input = Console.ReadLine() ?? "";
+            if (input == QuitKeys)
+            {
+                return;
+            }
+            else if (myPatternsDict.ContainsKey(input))
+            {
+                var (name, example_oo, example_fp) = myPatternsDict[input];
+                RunExamples(name, example_oo, example_fp);
+            }
+            else
+            {
+                Console.WriteLine("unknown keys (you entered: " + input + ") -> try again");
+            }
+        }
+    }
+
+    static void RunExamples(string patternName, Action objectOrientedExample, Action functionalExample)
+    {
+        Console.WriteLine(patternName + ':');
+        Console.WriteLine();
+        Console.WriteLine("-> Object Oriented:");
+        objectOrientedExample();
+        Console.WriteLine();
+        Console.WriteLine("-> Functional:");
+        functionalExample();
+        Console.WriteLine("------------------------------------------------------------");
     }
     #endregion
 }
