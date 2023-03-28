@@ -72,7 +72,7 @@
 
 // [DONE] Builder pattern: separates the construction of a complex object from its representation, allowing the same construction process to create different representations.
 
-// [TODO] Adapter pattern: converts the interface of a class into another interface clients expect.
+// [DONE] Adapter pattern: converts the interface of a class into another interface clients expect.
 
 // [TODO] Decorator pattern: attaches additional responsibilities to an object dynamically.
 
@@ -91,11 +91,11 @@ using ObjectOrientedPatterns.Creational.Singleton;
 
 using FunctionalPatterns.Creational;
 
+using ObjectOrientedPatterns.Structural.Adapter;
+using ObjectOrientedPatterns.Structural.Decorator;
 
 using FunctionalPatterns.Structural;
 using System.Text;
-using ObjectOrientedPatterns.Creational;
-using ObjectOrientedPatterns.Structural.Adapter;
 
 readonly struct PatternConfig
 {
@@ -114,6 +114,7 @@ readonly struct PatternConfig
 
 class Program
 {
+    #region Main machinery
     private static readonly List<PatternConfig> myCreationalPatterns = new()
     {
         new PatternConfig("af", "AbstractFactory", Example_AbstractFactory_OO, Example_AbstractFactory_FP),
@@ -124,6 +125,7 @@ class Program
     private static readonly List<PatternConfig> myStructuralPatterns = new()
     {
         new PatternConfig("ad", "Adapter", Example_Adapter_OO, Example_Adapter_FP),
+        new PatternConfig("de", "Decorator", Example_Decorator_OO, Example_Decorator_FP),
     };
     private static readonly List<PatternConfig> myBehavioralPatterns = new()
     {
@@ -208,6 +210,7 @@ class Program
         functionalExample();
         Console.WriteLine("------------------------------------------------------------");
     }
+    #endregion
 
     #region Creational Examples
     static void Example_AbstractFactory_OO()
@@ -326,8 +329,24 @@ class Program
         Adapter.Greetings adapter = Adapter.getGreetingsAdapter(legacyHello, "Best");
 
         functionYouWantToUse(adapter);
+    }
 
+    static void Example_Decorator_OO()
+    {
+        IWindow window = new NormalWindow();
+        window = new VerticalScrollbarDecorator(window);
+        window = new MenuBarDecorator(window);
+        window.Draw();
+    }
 
+    static void Example_Decorator_FP()
+    {
+        // Invoke is only needed for FSharpFunc's this however is compile to a method
+        Decorator.Window window = Decorator.justNormalWindow();
+
+        window = Decorator.verticalScrollbar(window);
+        window = Decorator.menuBar(window);
+        window.draw.Invoke(null);
     }
     #endregion
 
