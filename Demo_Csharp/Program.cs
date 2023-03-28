@@ -87,6 +87,7 @@
 using ObjectOrientedPatterns.Creational.AbstractFactory;
 using ObjectOrientedPatterns.Creational.Builder;
 using ObjectOrientedPatterns.Creational.FactoryMethod;
+using ObjectOrientedPatterns.Creational.Singleton;
 
 using FunctionalPatterns.Creational;
 
@@ -101,6 +102,7 @@ class Program
     private const string AbstractFactoryKeys = "af";
     private const string BuilderKeys = "bu";
     private const string FactoryMethodKeys = "fm";
+    private const string SingletonKeys = "si";
 
     // Structural
 
@@ -115,6 +117,7 @@ class Program
         sb.AppendLine(Choice(AbstractFactoryKeys, "AbstractFactory"));
         sb.AppendLine(Choice(BuilderKeys, "Builder"));
         sb.AppendLine(Choice(FactoryMethodKeys, "FactoryMethod"));
+        sb.AppendLine(Choice(SingletonKeys, "Singleton"));
         sb.AppendLine(Choice(QuitKeys, "Quit"));
         var prompt = sb.ToString();
 
@@ -143,6 +146,9 @@ class Program
                     break;
                 case FactoryMethodKeys:
                     RunExamples("FactoryMethod", Example_FactoryMethod_OO, Example_FactoryMethod_FP);
+                    break;
+                case SingletonKeys:
+                    RunExamples("Singleton", Example_Singleton_OO, Example_Singleton_FP);
                     break;
                 // Structural
                 // Behavioral
@@ -238,6 +244,19 @@ class Program
 
         FactoryMethod.FileReader pdfFileReader = FactoryMethod.createFileReader(".pdf");
         pdfFileReader.read.Invoke(null);
+    }
+
+    static void Example_Singleton_OO()
+    {
+        var singleton = ConfigSingleton.GetInstance;
+        Console.WriteLine(singleton.GetValue());
+        Console.WriteLine(singleton.GetValue());
+    }
+
+    static void Example_Singleton_FP()
+    {
+        Console.WriteLine(Singleton.getValue());
+        Console.WriteLine(Singleton.getValue());
     }
 
     // STRUCTURAL PATTERNS EXAMPLES
