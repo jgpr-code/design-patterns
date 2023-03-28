@@ -64,7 +64,7 @@
 
 // The most common patterns according to ChatGPT are:
 
-// [TODO] Singleton pattern: ensures that only one instance of a class is created and provides a global point of access to that instance.
+// [DONE] Singleton pattern: ensures that only one instance of a class is created and provides a global point of access to that instance.
 
 // [DONE] Factory method pattern: defines an interface for creating objects, but lets subclasses decide which class to instantiate.
 
@@ -96,17 +96,44 @@ using FunctionalPatterns.Structural;
 using System.Text;
 using ObjectOrientedPatterns.Creational;
 
+readonly struct PatternConfig
+{
+    public PatternConfig(string patternKeys, string patternName, Action patternExample_OO, Action patternExample_FP)
+    {
+        keys = patternKeys;
+        name = patternName;
+        example_OO = patternExample_OO;
+        example_FP = patternExample_FP;
+    }
+    public readonly string keys;
+    public readonly string name;
+    public readonly Action example_OO;
+    public readonly Action example_FP;
+}
+
 class Program
 {
-    // Creational
-    private const string AbstractFactoryKeys = "af";
-    private const string BuilderKeys = "bu";
-    private const string FactoryMethodKeys = "fm";
-    private const string SingletonKeys = "si";
+    private static readonly List<PatternConfig> myPatterns = new()
+    {
+        // Creational
+        new PatternConfig("af", "AbstractFactory", Example_AbstractFactory_OO, Example_AbstractFactory_FP),
+        new PatternConfig("bu", "Builder", Example_Builder_OO, Example_Builder_FP),
+        new PatternConfig("fm", "FactoryMethod", Example_FactoryMethod_OO, Example_FactoryMethod_FP),
+        new PatternConfig("si", "Singleton", Example_Singleton_OO, Example_Singleton_FP),
 
-    // Structural
+        // Structural
 
-    // Behavioral
+        // Behavioral
+    };
+    private static readonly Dictionary<string, (string, Action, Action)> myPatternsDict;
+
+    static Program()
+    {
+        myPatternsDict = new();
+        foreach (var pattern in myPatterns) {
+            myPatternsDict.Add(pattern.keys, (pattern.name, pattern.example_OO, pattern.example_FP));
+        }
+    }
 
     private const string QuitKeys = "q";
     public static void Main(string[] args)
@@ -114,13 +141,12 @@ class Program
         Console.WriteLine("Welcome to the DesignPatterns Examples");
         StringBuilder sb = new();
         sb.AppendLine("Please select an example to run:");
-        sb.AppendLine(Choice(AbstractFactoryKeys, "AbstractFactory"));
-        sb.AppendLine(Choice(BuilderKeys, "Builder"));
-        sb.AppendLine(Choice(FactoryMethodKeys, "FactoryMethod"));
-        sb.AppendLine(Choice(SingletonKeys, "Singleton"));
+        foreach (var pattern in myPatterns)
+        {
+            sb.AppendLine(Choice(pattern.keys, pattern.name));
+        }
         sb.AppendLine(Choice(QuitKeys, "Quit"));
         var prompt = sb.ToString();
-
         RunRepl(prompt);
     }
 
@@ -134,29 +160,19 @@ class Program
         while (true)
         {
             Console.WriteLine(prompt);
-            var input = Console.ReadLine();
-            switch (input)
+            string input = Console.ReadLine() ?? "";
+            if (input == QuitKeys)
             {
-                // Creational
-                case AbstractFactoryKeys:
-                    RunExamples("AbstractFactory", Example_AbstractFactory_OO, Example_AbstractFactory_FP);
-                    break;
-                case BuilderKeys:
-                    RunExamples("Builder", Example_Builder_OO, Example_Builder_FP);
-                    break;
-                case FactoryMethodKeys:
-                    RunExamples("FactoryMethod", Example_FactoryMethod_OO, Example_FactoryMethod_FP);
-                    break;
-                case SingletonKeys:
-                    RunExamples("Singleton", Example_Singleton_OO, Example_Singleton_FP);
-                    break;
-                // Structural
-                // Behavioral
-                case QuitKeys:
-                    return;
-                default:
-                    Console.WriteLine("unknown keys (you entered: " + input + ") -> try again");
-                    break;
+                return;
+            }
+            else if (myPatternsDict.ContainsKey(input))
+            {
+                var (name, example_oo, example_fp) = myPatternsDict[input];
+                RunExamples(name, example_oo, example_fp);
+            }
+            else
+            {
+                Console.WriteLine("unknown keys (you entered: " + input + ") -> try again");
             }
         }
     }
