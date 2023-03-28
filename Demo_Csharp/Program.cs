@@ -113,24 +113,31 @@ readonly struct PatternConfig
 
 class Program
 {
-    private static readonly List<PatternConfig> myPatterns = new()
+    private static readonly List<PatternConfig> myCreationalPatterns = new()
     {
-        // Creational
         new PatternConfig("af", "AbstractFactory", Example_AbstractFactory_OO, Example_AbstractFactory_FP),
         new PatternConfig("bu", "Builder", Example_Builder_OO, Example_Builder_FP),
         new PatternConfig("fm", "FactoryMethod", Example_FactoryMethod_OO, Example_FactoryMethod_FP),
         new PatternConfig("si", "Singleton", Example_Singleton_OO, Example_Singleton_FP),
+    };
+    private static readonly List<PatternConfig> myStructuralPatterns = new()
+    {
 
-        // Structural
+    };
+    private static readonly List<PatternConfig> myBehavioralPatterns = new()
+    {
 
-        // Behavioral
     };
     private static readonly Dictionary<string, (string, Action, Action)> myPatternsDict;
 
     static Program()
     {
+        var allPatterns =
+            myCreationalPatterns
+            .Concat(myStructuralPatterns)
+            .Concat(myBehavioralPatterns);
         myPatternsDict = new();
-        foreach (var pattern in myPatterns) {
+        foreach (var pattern in allPatterns) {
             myPatternsDict.Add(pattern.keys, (pattern.name, pattern.example_OO, pattern.example_FP));
         }
     }
@@ -138,13 +145,25 @@ class Program
     private const string QuitKeys = "q";
     public static void Main(string[] args)
     {
-        Console.WriteLine("Welcome to the DesignPatterns Examples");
+        Console.WriteLine("Welcome to the DesignPatterns examples!");
         StringBuilder sb = new();
-        sb.AppendLine("Please select an example to run:");
-        foreach (var pattern in myPatterns)
+        sb.AppendLine("Please select an example to run.");
+        sb.AppendLine("Creational:");
+        foreach (var pattern in myCreationalPatterns)
         {
             sb.AppendLine(Choice(pattern.keys, pattern.name));
         }
+        sb.AppendLine("Structural:");
+        foreach (var pattern in myStructuralPatterns)
+        {
+            sb.AppendLine(Choice(pattern.keys, pattern.name));
+        }
+        sb.AppendLine("Behavioral:");
+        foreach (var pattern in myBehavioralPatterns)
+        {
+            sb.AppendLine(Choice(pattern.keys, pattern.name));
+        }
+        sb.AppendLine();
         sb.AppendLine(Choice(QuitKeys, "Quit"));
         var prompt = sb.ToString();
         RunRepl(prompt);
@@ -189,7 +208,7 @@ class Program
         Console.WriteLine("------------------------------------------------------------");
     }
 
-    // CREATIONAL PATTERNS EXAMPLES
+    #region Creational Examples
     static void Example_AbstractFactory_OO()
     {
         // The concrete factory can be easily exchanged without the need to modify any other code
@@ -274,10 +293,11 @@ class Program
         Console.WriteLine(Singleton.getValue());
         Console.WriteLine(Singleton.getValue());
     }
+    #endregion
 
-    // STRUCTURAL PATTERNS EXAMPLES
+    #region Structural Examples
 
-    static void Example_Bridge_OOP()
+    static void Example_Bridge_OO()
     {
 
     }
@@ -286,6 +306,8 @@ class Program
     {
 
     }
+    #endregion
 
-    // BEHAVIORAL PATTERNS EXAMPLES
+    #region Behavioral Examples
+    #endregion
 }
