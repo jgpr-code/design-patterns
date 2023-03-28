@@ -119,7 +119,6 @@ class Program
         ICheapCar car = factory.CreateCheapCar();
         car.Drive();
     }
-
     static void Example_AbstractFactory_FP()
     {
         // Types that hold functions in their fields can emulate this pattern
@@ -147,7 +146,6 @@ class Program
         classicDirector.StandardChoreo();
         Console.WriteLine(classicChoreo.GetChoreo());
     }
-
     static void Example_Builder_FP()
     {
         // Note: functional style doesn't mutate the builder but instead creates a new one
@@ -166,7 +164,6 @@ class Program
         IFileReader pdfFileReader = FileReaderFactory.CreateFileReader(".pdf");
         pdfFileReader.Read();
     }
-
     static void Example_FactoryMethod_FP()
     {
         FactoryMethod.FileReader textFileReader = FactoryMethod.createFileReader(".txt");
@@ -182,7 +179,6 @@ class Program
         Console.WriteLine(singleton.GetValue());
         Console.WriteLine(singleton.GetValue());
     }
-
     static void Example_Singleton_FP()
     {
         Console.WriteLine(Singleton.getValue());
@@ -191,7 +187,6 @@ class Program
     #endregion
 
     #region Structural Examples
-
     static void Example_Adapter_OO()
     {
         SayHello legacyHello = new("<your name>");
@@ -206,7 +201,6 @@ class Program
 
         functionYouWantToUse(adapter);
     }
-
     static void Example_Adapter_FP()
     {
         Adapter.Hello legacyHello = Adapter.getHello("<your name>");
@@ -229,7 +223,6 @@ class Program
         window = new MenuBarDecorator(window);
         window.Draw();
     }
-
     static void Example_Decorator_FP()
     {
         // Invoke is only needed for FSharpFunc's this however is compile to a method
@@ -248,7 +241,6 @@ class Program
         ComputerFacade computer = new(cpu, hardDrive, memory);
         computer.Start();
     }
-
     static void Example_Facade_FP()
     {
         Facade.Cpu cpu = Facade.newCpu;
@@ -268,7 +260,6 @@ class Program
         Speaking slowTalking = new Speaking(new SlowTalk());
         slowTalking.SpeakText("hello");
     }
-
     static void Example_Strategy_FP()
     {
         Strategy.SpeakingType screaming = Strategy.screaming;
