@@ -58,44 +58,32 @@
 // Specification Recombinable business logic in a Boolean fashion.
 // Fluent Interface Design an API to be method chained so that it reads like a DSL. Each method call returns a context through which the next logical method call(s) are made available.
 
-// Concurrency Patterns
-
-// Maybe also interesting read: https://en.wikipedia.org/wiki/Expression_problem
-
 // The most common patterns according to ChatGPT are:
-
 // [DONE] Singleton pattern: ensures that only one instance of a class is created and provides a global point of access to that instance.
-
 // [DONE] Factory method pattern: defines an interface for creating objects, but lets subclasses decide which class to instantiate.
-
 // [DONE] Abstract factory pattern: provides an interface for creating families of related or dependent objects without specifying their concrete classes.
-
 // [DONE] Builder pattern: separates the construction of a complex object from its representation, allowing the same construction process to create different representations.
-
 // [DONE] Adapter pattern: converts the interface of a class into another interface clients expect.
-
 // [DONE] Decorator pattern: attaches additional responsibilities to an object dynamically.
-
 // [DONE] Facade pattern: provides a unified interface to a set of interfaces in a subsystem.
-
 // [TODO] Observer pattern: defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
-
-// [TODO] Strategy pattern: defines a family of algorithms, encapsulates each one, and makes them interchangeable.
-
+// [DONE] Strategy pattern: defines a family of algorithms, encapsulates each one, and makes them interchangeable.
 // [TODO] Template method pattern: defines the skeleton of an algorithm in a method, deferring some steps to subclasses.
 
 using ObjectOrientedPatterns.Creational.AbstractFactory;
 using ObjectOrientedPatterns.Creational.Builder;
 using ObjectOrientedPatterns.Creational.FactoryMethod;
 using ObjectOrientedPatterns.Creational.Singleton;
-
 using FunctionalPatterns.Creational;
 
 using ObjectOrientedPatterns.Structural.Adapter;
 using ObjectOrientedPatterns.Structural.Decorator;
 using ObjectOrientedPatterns.Structural.Facade;
-
 using FunctionalPatterns.Structural;
+
+using ObjectOrientedPatterns.Behavioral.Strategy;
+using FunctionalPatterns.Behavioral;
+
 using System.Text;
 
 readonly struct PatternConfig
@@ -131,7 +119,7 @@ class Program
     };
     private static readonly List<PatternConfig> myBehavioralPatterns = new()
     {
-
+        new PatternConfig("st", "Strategy", Example_Strategy_OO, Example_Strategy_FP),
     };
     private static readonly Dictionary<string, (string, Action, Action)> myPatternsDict;
 
@@ -372,5 +360,20 @@ class Program
     #endregion
 
     #region Behavioral Examples
+    static void Example_Strategy_OO()
+    {
+        Speaking screaming = new Speaking(new Screaming());
+        screaming.SpeakText("hello");
+        Speaking slowTalking = new Speaking(new SlowTalk());
+        slowTalking.SpeakText("hello");
+    }
+
+    static void Example_Strategy_FP()
+    {
+        Strategy.SpeakingType screaming = Strategy.screaming;
+        Strategy.speakText(screaming, "hello");
+        Strategy.SpeakingType slowTalking = Strategy.slowTalking;
+        Strategy.speakText(slowTalking, "hello");
+    }
     #endregion
 }
