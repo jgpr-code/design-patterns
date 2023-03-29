@@ -81,6 +81,7 @@ using ObjectOrientedPatterns.Structural.Decorator;
 using ObjectOrientedPatterns.Structural.Facade;
 using FunctionalPatterns.Structural;
 
+using ObjectOrientedPatterns.Behavioral.Observer;
 using ObjectOrientedPatterns.Behavioral.Strategy;
 using FunctionalPatterns.Behavioral;
 
@@ -253,6 +254,42 @@ class Program
     #endregion
 
     #region Behavioral Examples
+    static void Example_Observer_OO()
+    {
+        var stockMarket = new StockMarket("NASDAQ", 100.00);
+
+        var investor1 = new Investor("John");
+        var investor2 = new Investor("Jane");
+
+        stockMarket.AddObserver(investor1);
+        stockMarket.AddObserver(investor2);
+
+        stockMarket.Price = 105.00;
+
+        stockMarket.RemoveObserver(investor1);
+
+        stockMarket.Price = 110.00;
+    }
+    static void Example_Observer_FP()
+    {
+        // I wanted to avoid mutation here, so the states are chained through the computations
+        var stockMarket = Observer.newStockMarket("NASDAQ", 100.00);
+
+        var observers = Observer.noInitialObservers;
+        var investor1 = Observer.newInvestor("Haskell");
+        var investor2 = Observer.newInvestor("Curry");
+
+        observers = Observer.registerObserver(investor1, observers);
+        observers = Observer.registerObserver(investor2, observers);
+
+        stockMarket = Observer.updateStockMarket(stockMarket, 105.00);
+        Observer.notifyObservers(stockMarket, observers);
+
+        observers = Observer.removeObserver(investor1, observers);
+
+        stockMarket = Observer.updateStockMarket(stockMarket, 110.00);
+        Observer.notifyObservers(stockMarket, observers);
+    }
     static void Example_Strategy_OO()
     {
         Speaking screaming = new Speaking(new Screaming());
@@ -285,6 +322,7 @@ class Program
     };
     private static readonly List<PatternConfig> myBehavioralPatterns = new()
     {
+        new PatternConfig("ob", "Observer", Example_Observer_OO, Example_Observer_FP),
         new PatternConfig("st", "Strategy", Example_Strategy_OO, Example_Strategy_FP),
     };
     private static readonly Dictionary<string, (string, Action, Action)> myPatternsDict;
