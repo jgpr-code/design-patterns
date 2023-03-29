@@ -66,7 +66,7 @@
 // [DONE] Adapter pattern: converts the interface of a class into another interface clients expect.
 // [DONE] Decorator pattern: attaches additional responsibilities to an object dynamically.
 // [DONE] Facade pattern: provides a unified interface to a set of interfaces in a subsystem.
-// [TODO] Observer pattern: defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
+// [DONE] Observer pattern: defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
 // [DONE] Strategy pattern: defines a family of algorithms, encapsulates each one, and makes them interchangeable.
 // [TODO] Template method pattern: defines the skeleton of an algorithm in a method, deferring some steps to subclasses.
 
@@ -105,6 +105,7 @@ readonly struct PatternConfig
 class Program
 {
     #region Creational Examples
+    #region AbstractFactory
     static void Example_AbstractFactory_OO()
     {
         // The concrete factory can be easily exchanged without the need to modify any other code
@@ -134,7 +135,8 @@ class Program
         AbstractFactory.CheapCar car = factory.createCheapCar.Invoke(null);
         car.drive.Invoke(null);
     }
-
+    #endregion
+    #region Builder
     static void Example_Builder_OO()
     {
         var metalChoreo = new MetalChoreoBuilder();
@@ -156,7 +158,8 @@ class Program
         var classicChoreo = Builder.createChoreo(Builder.classicBuilder);
         Console.WriteLine(classicChoreo.getChoreo.Invoke(null));
     }
-
+    #endregion
+    #region FactoryMethod
     static void Example_FactoryMethod_OO()
     {
         IFileReader textFileReader = FileReaderFactory.CreateFileReader(".txt");
@@ -173,7 +176,8 @@ class Program
         FactoryMethod.FileReader pdfFileReader = FactoryMethod.createFileReader(".pdf");
         pdfFileReader.read.Invoke(null);
     }
-
+    #endregion
+    #region Singleton
     static void Example_Singleton_OO()
     {
         var singleton = ConfigSingleton.GetInstance;
@@ -186,8 +190,10 @@ class Program
         Console.WriteLine(Singleton.getValue());
     }
     #endregion
+    #endregion
 
     #region Structural Examples
+    #region Adapter
     static void Example_Adapter_OO()
     {
         SayHello legacyHello = new("<your name>");
@@ -216,7 +222,8 @@ class Program
 
         functionYouWantToUse(adapter);
     }
-
+    #endregion
+    #region Decorator
     static void Example_Decorator_OO()
     {
         IWindow window = new NormalWindow();
@@ -233,7 +240,8 @@ class Program
         window = Decorator.menuBar(window);
         window.draw.Invoke(null);
     }
-
+    #endregion
+    #region Facade
     static void Example_Facade_OO()
     {
         Cpu cpu = new();
@@ -252,8 +260,10 @@ class Program
         computer.start.Invoke(null);
     }
     #endregion
+    #endregion
 
     #region Behavioral Examples
+    #region Observer
     static void Example_Observer_OO()
     {
         var stockMarket = new StockMarket("NASDAQ", 100.00);
@@ -290,6 +300,8 @@ class Program
         stockMarket = Observer.updateStockMarket(stockMarket, 110.00);
         Observer.notifyObservers(stockMarket, observers);
     }
+    #endregion
+    #region Strategy
     static void Example_Strategy_OO()
     {
         Speaking screaming = new Speaking(new Screaming());
@@ -304,6 +316,7 @@ class Program
         Strategy.SpeakingType slowTalking = Strategy.slowTalking;
         Strategy.speakText(slowTalking, "hello");
     }
+    #endregion
     #endregion
 
     #region Main machinery
