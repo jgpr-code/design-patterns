@@ -68,7 +68,9 @@
 // [DONE] Facade pattern: provides a unified interface to a set of interfaces in a subsystem.
 // [DONE] Observer pattern: defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
 // [DONE] Strategy pattern: defines a family of algorithms, encapsulates each one, and makes them interchangeable.
-// [TODO] Template method pattern: defines the skeleton of an algorithm in a method, deferring some steps to subclasses.
+// [DONE] Template method pattern: defines the skeleton of an algorithm in a method, deferring some steps to subclasses.
+
+using System.Text;
 
 using ObjectOrientedPatterns.Creational.AbstractFactory;
 using ObjectOrientedPatterns.Creational.Builder;
@@ -83,9 +85,8 @@ using FunctionalPatterns.Structural;
 
 using ObjectOrientedPatterns.Behavioral.Observer;
 using ObjectOrientedPatterns.Behavioral.Strategy;
+using ObjectOrientedPatterns.Behavioral.TemplateMethod;
 using FunctionalPatterns.Behavioral;
-
-using System.Text;
 
 readonly struct PatternConfig
 {
@@ -317,6 +318,24 @@ class Program
         Strategy.speakText(slowTalking, "hello");
     }
     #endregion
+    #region TemplateMethod
+    static void Example_TemplateMethod_OO()
+    {
+        Game mario = new Mario();
+        mario.Play();
+        Console.WriteLine("---");
+        Game chess = new Chess();
+        chess.Play();
+    }
+    static void Example_TemplateMethod_FP()
+    {
+        var mario = TemplateMethod.mario;
+        TemplateMethod.playGame(mario);
+        Console.WriteLine("---");
+        var chess = TemplateMethod.chess;
+        TemplateMethod.playGame(chess);
+    }
+    #endregion
     #endregion
 
     #region Main machinery
@@ -337,6 +356,7 @@ class Program
     {
         new PatternConfig("ob", "Observer", Example_Observer_OO, Example_Observer_FP),
         new PatternConfig("st", "Strategy", Example_Strategy_OO, Example_Strategy_FP),
+        new PatternConfig("tm", "TemplateMethod", Example_TemplateMethod_OO, Example_TemplateMethod_FP),
     };
     private static readonly Dictionary<string, (string, Action, Action)> myPatternsDict;
 
