@@ -10,14 +10,14 @@ module Builder =
           moveHead: string -> string
           getChoreo: unit -> string }
 
-    let metalBuilder =
+    let newMetalBuilder =
         { clap = fun s -> s + "Smashing your hands together\n"
           moveArms = fun s -> s + "Wildly swinging your arms\n"
           moveLegs = fun s -> s + "Furiously kicking around\n"
           moveHead = fun s -> s + "Banging your head up and down\n" 
           getChoreo = fun () -> "" }
 
-    let classicBuilder =
+    let newClassicBuilder =
         { clap = fun s -> s + "Clapping your hands\n"
           moveArms = fun s -> s + "Waving your arms\n"
           moveLegs = fun s -> s + "Turning your head\n"

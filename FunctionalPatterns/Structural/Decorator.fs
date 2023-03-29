@@ -5,7 +5,7 @@ module Decorator =
 
     type Window = { draw: unit -> unit }
 
-    let justNormalWindow () =
+    let newNormalWindow () =
         { draw = fun () -> printfn "A normal window" }
 
     let verticalScrollbar window =

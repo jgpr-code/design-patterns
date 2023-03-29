@@ -11,30 +11,15 @@ module Adapter =
         { sayHello: string -> unit
           whatsUp: string -> unit }
 
-    let sayHello prefix name =
-        printfn "Hello %s %s" prefix name
+    let newHello name =
+        { sayHello = fun prefix -> printfn "Hello %s %s" prefix name
+          whatsUp = fun prefix -> printfn "What's up %s %s" prefix name}
 
-    let whatsUp prefix name =
-        printfn "What's up %s %s" prefix name
-
-    let private flip f x y = f y x
-    let getHello name =
-        { sayHello = fun (prefix) -> sayHello prefix name
-          whatsUp =  (flip whatsUp) name} // Flip + currying :)
-
-    let greetFormalAdapter (legacyHellos: Hello) prefix =
-        legacyHellos.sayHello prefix
-        prefix
-
-    let greetInformalAdapter (legacyHellos: Hello) prefix =
-        legacyHellos.whatsUp prefix
-        prefix
-
-    // Type to be adapted: Hellos
+    // Type to be adapted: Hello
     // Type that is needed: Greetings
     // Adapter pattern is basically a function:
-    //  Hellos -> <Additional Hellos config (here prefix)> -> Greetings
-    let getGreetingsAdapter legacyHellos prefix =
-        { greetFormal = fun () -> greetFormalAdapter legacyHellos prefix
-          greetInformal = fun () -> greetInformalAdapter legacyHellos prefix}
+    //  Hello -> <Additional Hello config (here prefix)> -> Greetings
+    let newGreetingsAdapter legacyHello prefix =
+        { greetFormal = fun () -> legacyHello.sayHello prefix; prefix
+          greetInformal = fun () -> legacyHello.whatsUp prefix; prefix }
 
