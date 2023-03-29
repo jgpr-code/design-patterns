@@ -1,5 +1,7 @@
 ﻿namespace ObjectOrientedPatterns.Structural.Adapter
 {
+    // see https://en.wikipedia.org/wiki/Adapter_pattern
+
     public interface IGreetings
     {
         public string GreetFormal();

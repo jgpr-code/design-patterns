@@ -1,5 +1,7 @@
 ﻿namespace ObjectOrientedPatterns.Behavioral.Observer
 {
+    // see https://en.wikipedia.org/wiki/Observer_pattern
+
     // Subject
     public interface IStockMarket
     {

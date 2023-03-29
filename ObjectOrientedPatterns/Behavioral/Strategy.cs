@@ -1,5 +1,7 @@
 ﻿namespace ObjectOrientedPatterns.Behavioral.Strategy
 {
+    // see https://en.wikipedia.org/wiki/Strategy_pattern
+
     public interface ISpeakingStrategy
     {
         public void Speak(string text);

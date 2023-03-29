@@ -1,5 +1,7 @@
 ﻿namespace ObjectOrientedPatterns.Creational.Singleton
 {
+    // see https://en.wikipedia.org/wiki/Singleton_pattern
+
     public class ConfigSingleton
     {
         public static ConfigSingleton GetInstance

@@ -1,5 +1,7 @@
 ﻿namespace ObjectOrientedPatterns.Structural.Decorator
 {
+    // see https://en.wikipedia.org/wiki/Decorator_pattern
+
     public interface IWindow
     {
         public void Draw();

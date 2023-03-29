@@ -1,5 +1,7 @@
 ﻿namespace ObjectOrientedPatterns.Behavioral.TemplateMethod
 {
+    // see https://en.wikipedia.org/wiki/Template_method_pattern
+
     public abstract class Game
     {
         public void Play()

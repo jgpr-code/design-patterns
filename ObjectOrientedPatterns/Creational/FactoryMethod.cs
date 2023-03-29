@@ -1,5 +1,7 @@
 ﻿namespace ObjectOrientedPatterns.Creational.FactoryMethod
 {
+    // see https://en.wikipedia.org/wiki/Factory_method_pattern
+
     public interface IFileReader
     {
         void Read();

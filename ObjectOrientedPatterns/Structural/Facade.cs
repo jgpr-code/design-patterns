@@ -1,5 +1,7 @@
 ﻿namespace ObjectOrientedPatterns.Structural.Facade
 {
+    // see https://en.wikipedia.org/wiki/Facade_pattern
+
     public class Cpu
     {
         public void Freeze() => Console.WriteLine("Freeze CPU");
