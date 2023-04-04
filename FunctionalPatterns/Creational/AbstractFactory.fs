@@ -15,7 +15,7 @@ module AbstractFactory =
         { createCheapCar: unit -> CheapCar
           createExpensiveCar: unit -> ExpensiveCar }
 
-    let private newCeapOpel () =
+    let private newCheapOpel () =
         { CheapCar.drive = fun () -> printfn "driving a cheap Opel" }
 
     let private newExpensiveOpel () =
@@ -30,7 +30,7 @@ module AbstractFactory =
           entertain = fun () -> printfn "Tesla entertainment" }
 
     let newOpelFactory () =
-        { createCheapCar = fun () -> newCeapOpel ()
+        { createCheapCar = fun () -> newCheapOpel ()
           createExpensiveCar = newExpensiveOpel }
 
     let newTeslaFactory () =

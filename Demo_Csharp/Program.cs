@@ -125,7 +125,7 @@ class Program
     {
         // Types that hold functions in their fields can emulate this pattern
         AbstractFactory.CarFactory factory =
-        //AbstractFactory.createTeslaFactory();
+        //AbstractFactory.newTeslaFactory();
         AbstractFactory.newOpelFactory();
 
         AbstractFactory.ExpensiveCar expensiveCar = factory.createExpensiveCar.Invoke(null); // () in F# is null in C#
